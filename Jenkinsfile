@@ -52,7 +52,6 @@ stages {
         timeout(time: 1, units: 'MINUTES') {
              waitForQualityGate abortPipeline: true
         }
-      }
     }
 }
  //    stage('Artifact upload') {
