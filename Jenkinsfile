@@ -12,7 +12,7 @@ stages {
 
       // Get some code from a GitHub repository
 
-      git 'https://github.com/raknas999/game-of-life.git'
+      git credentialsId: 'git', url: 'https://github.com/shivanani220/game-of-life.git'
 
       // Get the Maven tool.
      
@@ -35,12 +35,12 @@ stages {
 //}
    }
  
-  stage('Unit Test Results') {
-      steps {
-      junit '**/target/surefire-reports/TEST-*.xml'
+ // stage('Unit Test Results') {
+   //   steps {
+     // junit '**/target/surefire-reports/TEST-*.xml'
       
-     }
- }
+     //}
+ //}
  stage('Sonarqube') {
     environment {
         def scannerHome = tool 'sonarqube';
@@ -54,9 +54,9 @@ stages {
         }
     }
 }
-     stage('Artifact upload') {
-      steps {
-       nexusPublisher nexusInstanceId: '1234', nexusRepositoryId: 'releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'gameoflife-web/target/gameoflife.war']], mavenCoordinate: [artifactId: 'gameoflife', groupId: 'com.wakaleo.gameoflife', packaging: 'war', version: '$BUILD_NUMBER']]]
+ //    stage('Artifact upload') {
+   //   steps {
+     //  nexusPublisher nexusInstanceId: '1234', nexusRepositoryId: 'releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'gameoflife-web/target/gameoflife.war']], mavenCoordinate: [artifactId: 'gameoflife', groupId: 'com.wakaleo.gameoflife', packaging: 'war', version: '$BUILD_NUMBER']]]
       }
      }
     //stage('Deploy War') {
@@ -64,13 +64,13 @@ stages {
         //sh label: '', script: 'ansible-playbook deploy.yml'
       //}
  //}
-}
-post {
-       success {
-            archiveArtifacts 'gameoflife-web/target/*.war'
-        }
-       failure {
-           mail to:"raknas000@gmail.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Build failed"
-        }
-    }       
-}
+//}
+//post {
+  //     success {
+  //          archiveArtifacts 'gameoflife-web/target/*.war'
+    //    }
+      // failure {
+        //   mail to:"raknas000@gmail.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Build failed"
+        //}
+   // }       
+//}
