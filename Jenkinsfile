@@ -41,7 +41,7 @@ stages {
       
      //}
  //}
-	  stage('sonarqube') {
+	  stage('Sonarqube') {
          environment {
            scannerHome = tool 'sonarqube'
        }
@@ -49,11 +49,22 @@ stages {
             withSonarQubeEnv('sonarqube') {
             sh "${scannerHome}/bin/sonar-scanner"
            }
-          timeout(time: 5, unit: 'MINUTES') {
-           waitForQualityGate abortPipeline: true
-           }
-	     }
-      }
+	 }
+     }
+    stage("Quality Gate Statuc Check"){
+          timeout(time: 1, unit: 'MINUTES') {
+              def qg = waitForQualityGate()
+              if (qg.status != 'OK') {
+                   slackSend baseUrl: 'https://hooks.slack.com/services/',
+                   channel: '#jenkins-pipeline-demo',
+                   color: 'danger', 
+                   message: 'SonarQube Analysis Failed', 
+                   teamDomain: 'javahomecloud',
+                   tokenCredentialId: 'slack-demo'
+                  error "Pipeline aborted due to quality gate failure: ${qg.status}"
+              }
+          }
+      }    
  //    stage('Artifact upload') {
    //   steps {
      //  nexusPublisher nexusInstanceId: '1234', nexusRepositoryId: 'releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'gameoflife-web/target/gameoflife.war']], mavenCoordinate: [artifactId: 'gameoflife', groupId: 'com.wakaleo.gameoflife', packaging: 'war', version: '$BUILD_NUMBER']]]
