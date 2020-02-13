@@ -12,7 +12,7 @@ stages {
 
       // Get some code from a GitHub repository
 
-      git credentialsId: 'git', url: 'https://github.com/shivanani220/game-of-life.git'
+      checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'git', url: 'https://github.com/shivanani220/game-of-life.git']]])'
 
       // Get the Maven tool.
      
@@ -41,7 +41,7 @@ stages {
       
      //}
  //}
-	  stage('Sonarqube') {
+	  stage('sonarqube') {
          environment {
            scannerHome = tool 'sonarqube'
        }
@@ -49,21 +49,10 @@ stages {
             withSonarQubeEnv('sonarqube') {
             sh "${scannerHome}/bin/sonar-scanner"
            }
-	 }
-     }
-    stage("Quality Gate Statuc Check"){
-          timeout(time: 1, unit: 'MINUTES') {
-              def qg = waitForQualityGate()
-              if (qg.status != 'OK') {
-                   slackSend baseUrl: 'https://hooks.slack.com/services/',
-                   channel: '#jenkins-pipeline-demo',
-                   color: 'danger', 
-                   message: 'SonarQube Analysis Failed', 
-                   teamDomain: 'javahomecloud',
-                   tokenCredentialId: 'slack-demo'
-                  error "Pipeline aborted due to quality gate failure: ${qg.status}"
-              }
-          }
+          timeout(time: 10, unit: 'MINUTES') {
+           waitForQualityGate abortPipeline: true
+           }
+	     }
       }    
  //    stage('Artifact upload') {
    //   steps {
