@@ -34,12 +34,11 @@ stages {
 //}
    }
  
- // stage('Unit Test Results') {
-   //   steps {
-     // junit '**/target/surefire-reports/TEST-*.xml'
-      
-     //}
- //}
+   stage('Unit Test Results') {
+      steps {
+      junit '**/build/test-reports/*.xml'      
+     }
+ }
 	  stage('sonarqube') {
          environment {
            scannerHome = tool 'sonarqube'
@@ -63,12 +62,13 @@ stages {
         sh label: '', script: 'ansible-playbook deploy.yml'
       }
   }
-//}
+}
  post {
   //     success {
   //          archiveArtifacts 'gameoflife-web/target/*.war'
     //    }
         failure {
-         mail bcc: '', body: '', cc: '', from: '', replyTo: '', subject: '', to: 'shivavamshi.89@gmail.com'        }
+         mail bcc: '', body: '', cc: '', from: '', replyTo: '', subject: '', to: 'shivavamshi.89@gmail.com'      
+	}
    }       
-//}
+}
