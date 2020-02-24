@@ -49,7 +49,10 @@ stages {
       }
     }
 
-   post {
+    post {
+		success {
+            archiveArtifacts 'gameoflife-web/target/*.war'
+        }
 
         failure {
          mail bcc: '', body: '', cc: '', from: '', replyTo: '', subject: '', to: 'shivavamshi.89@gmail.com'      
