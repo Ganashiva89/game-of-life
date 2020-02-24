@@ -11,8 +11,7 @@ stages {
 // for display purpose
 
       // Get some code from a GitHub repository
-
-	    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'git', url: 'https://github.com/shivanani220/game-of-life.git']]])
+        git credentialsId: 'git', url: 'https://github.com/shivanani220/game-of-life.git'
       // Get the Maven tool.
      
  // ** NOTE: This 'M3' Maven tool must be configured
