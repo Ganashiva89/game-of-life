@@ -6,32 +6,19 @@ pipeline {
     }
 stages { 
      
- stage('Preparation') { 
+ stage('checkout') { 
      steps {
-// for display purpose
 
-      // Get some code from a GitHub repository
         git credentialsId: 'git', url: 'https://github.com/shivanani220/game-of-life.git'
-      // Get the Maven tool.
-     
- // ** NOTE: This 'M3' Maven tool must be configured
- 
-     // **       in the global configuration.   
+  
      }
    }
 
    stage('Build') {
        steps {
-       // Run the maven build
-
-      //if (isUnix()) {
          sh label: '', script: 'mvn clean package '
-      //} 
-      //else {
-      //   bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
        }
-//}
-   }
+ }
  
    stage('Unit Test Results') {
       steps {
@@ -63,9 +50,7 @@ stages {
   }
 
  post {
-  //     success {
-  //          archiveArtifacts 'gameoflife-web/target/*.war'
-    //    }
+
         failure {
          mail bcc: '', body: '', cc: '', from: '', replyTo: '', subject: '', to: 'shivavamshi.89@gmail.com'      
 	}
