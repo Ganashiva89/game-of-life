@@ -54,7 +54,7 @@ stages {
       }    
      stage('Artifact upload') {
       steps {
-        nexusArtifactUploader credentialsId: 'nexus', groupId: 'CI_CD', nexusUrl: 'http://3.133.98.64:8081/nexus', nexusVersion: 'nexus2', protocol: 'http', repository: 'java', version: '$BUILD_NUMBER'
+        nexusArtifactUploader credentialsId: 'nexus', groupId: 'CI_CD', nexusUrl: 'http://3.133.98.64:8081/nexus', nexusVersion: 'nexus2', protocol: 'http', repository: 'java', version: '$BUILD_ID'
       }
      }
     stage('Deploy War') {
