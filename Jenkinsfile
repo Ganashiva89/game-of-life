@@ -47,14 +47,14 @@ stages {
       steps {
         sh label: '', script: 'ansible-playbook deploy.yml'
       }
-post {
-	success {
-            archiveArtifacts 'gameoflife-web/target/*.war'
-        }
+//post {
+//	success {
+  //          archiveArtifacts 'gameoflife-web/target/*.war'
+    //    }
 
-        failure {
-         mail bcc: '', body: '', cc: '', from: '', replyTo: '', subject: '', to: 'shivavamshi.89@gmail.com'      
+//        failure {
+  //       mail bcc: '', body: '', cc: '', from: '', replyTo: '', subject: '', to: 'shivavamshi.89@gmail.com'      
 	}
       }
-   }       
+ //  }       
   
