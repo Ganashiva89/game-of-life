@@ -8,30 +8,17 @@ stages {
      
  stage('checkout') { 
      steps {
-// for display purpose
 
-      // Get some code from a GitHub repository
 
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'git', url: 'https://github.com/shivanani220/game-of-life.git']]])      
-
-      // Get the Maven tool.
-     
- // ** NOTE: This 'M3' Maven tool must be configured
- 
-     // **       in the global configuration.   
+  
      }
    }
-	   stage('Build') {
-       steps {
-       // Run the maven build
-
-      //if (isUnix()) {
+stage('Build') {
+	steps {
          sh label: '', script: 'mvn clean package'
-      //} 
-      //else {
-      //   bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
-       }
-//}
+    
+	}
    }
 
  
