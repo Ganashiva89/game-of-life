@@ -41,19 +41,19 @@ stages {
       
      }
  }
- stage('sonarqube') {
-    environment {
-        def scannerHome = tool 'sonarqube';
-    }
-    steps {
-      withSonarQubeEnv('sonarqube') {
+	  stage('sonarqube') {
+         environment {
+           scannerHome = tool 'sonarqube'
+       }
+         steps {
+            withSonarQubeEnv('sonarqube') {
             sh "${scannerHome}/bin/sonar-scanner"
-        }
-        timeout(time: 10, unit: 'MINUTES') {
-          waitForQualityGate abortPipeline: true
-        }
-    }
-}
+           }
+          timeout(time: 10, unit: 'MINUTES') {
+           waitForQualityGate abortPipeline: true
+           }
+	     }
+      }
      stage('Artifact upload') {
       steps {
        nexusArtifactUploader artifacts: [[artifactId: 'gameoflife', classifier: '', file: 'gameoflife-web/target/gameoflife.war', type: 'war']], credentialsId: 'nexus', groupId: 'CI_CD', nexusUrl: 'http://3.133.98.64:8081/nexus', nexusVersion: 'nexus2', protocol: 'http', repository: 'java', version: '$BUILD_NUMBER'      }
