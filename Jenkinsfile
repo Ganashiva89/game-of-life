@@ -55,6 +55,6 @@ post {
         failure {
          mail bcc: '', body: '', cc: '', from: '', replyTo: '', subject: '', to: 'shivavamshi.89@gmail.com'      
 	}
+}
    }       
   }
-}
