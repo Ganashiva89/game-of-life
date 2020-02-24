@@ -21,7 +21,18 @@ stages {
      // **       in the global configuration.   
      }
    }
+	   stage('Build') {
+       steps {
+       // Run the maven build
 
+      //if (isUnix()) {
+         sh label: '', script: 'mvn clean package'
+      //} 
+      //else {
+      //   bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
+       }
+//}
+   }
 
  
   stage('Unit Test Results') {
@@ -43,18 +54,7 @@ stages {
            }
 	     }
       }
-	   stage('Build') {
-       steps {
-       // Run the maven build
 
-      //if (isUnix()) {
-         sh label: '', script: 'mvn clean package'
-      //} 
-      //else {
-      //   bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
-       }
-//}
-   }
      stage('Artifact upload') {
       steps {
        nexusArtifactUploader artifacts: [[artifactId: 'gameoflife', classifier: '', file: 'gameoflife-web/target/gameoflife.war', type: 'war']], credentialsId: 'nexus', groupId: 'CI_CD', nexusUrl: 'http://3.133.98.64:8081/nexus', nexusVersion: 'nexus2', protocol: 'http', repository: 'java', version: '$BUILD_NUMBER'      }
