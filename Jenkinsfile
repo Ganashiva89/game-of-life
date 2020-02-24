@@ -47,10 +47,8 @@ stages {
       steps {
         sh label: '', script: 'ansible-playbook deploy.yml'
       }
-    }
-
-    post {
-		success {
+post {
+	success {
             archiveArtifacts 'gameoflife-web/target/*.war'
         }
 
