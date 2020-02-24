@@ -12,8 +12,7 @@ stages {
 
       // Get some code from a GitHub repository
 
-      checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'git', url: 'https://github.com/shivanani220/game-of-life.git']]])'
-
+	    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'git', url: 'https://github.com/shivanani220/game-of-life.git']]])
       // Get the Maven tool.
      
  // ** NOTE: This 'M3' Maven tool must be configured
@@ -27,7 +26,7 @@ stages {
        // Run the maven build
 
       //if (isUnix()) {
-         sh label: '', script: 'mvn clean package'
+         sh label: '', script: 'mvn clean package '
       //} 
       //else {
       //   bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
@@ -54,23 +53,22 @@ stages {
            }
 	     }
       }    
- //    stage('Artifact upload') {
-   //   steps {
-     //  nexusPublisher nexusInstanceId: '1234', nexusRepositoryId: 'releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'gameoflife-web/target/gameoflife.war']], mavenCoordinate: [artifactId: 'gameoflife', groupId: 'com.wakaleo.gameoflife', packaging: 'war', version: '$BUILD_NUMBER']]]
+     stage('Artifact upload') {
+      steps {
+        nexusArtifactUploader credentialsId: 'nexus', groupId: 'CI_CD', nexusUrl: 'http://3.133.98.64:8081/nexus', nexusVersion: 'nexus2', protocol: 'http', repository: 'java', version: '$BUILD_NUMBER'
       }
      }
-    //stage('Deploy War') {
-      //steps {
-        //sh label: '', script: 'ansible-playbook deploy.yml'
-      //}
- //}
+    stage('Deploy War') {
+      steps {
+        sh label: '', script: 'ansible-playbook deploy.yml'
+      }
+  }
 //}
-//post {
+ post {
   //     success {
   //          archiveArtifacts 'gameoflife-web/target/*.war'
     //    }
-      // failure {
-        //   mail to:"raknas000@gmail.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Build failed"
-        //}
-   // }       
+        failure {
+         mail bcc: '', body: '', cc: '', from: '', replyTo: '', subject: '', to: 'shivavamshi.89@gmail.com'        }
+   }       
 //}
