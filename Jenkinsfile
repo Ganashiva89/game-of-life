@@ -30,7 +30,7 @@ stage('Build') {
  }
   stage('sonarqube') {
        environment {
-           scannerHome = tool 'sonarqube'
+       def scannerHome = tool 'SonarScanner'
        }
          steps {
             withSonarQubeEnv('sonarqube') {
