@@ -26,6 +26,6 @@
   - name: Deploy War File
     get_url:
        url: http://3.12.104.45:8081/nexus/content/repositories/java/redirect?r=java&g=new&a=gameoflife&p=war&v=LATEST
-       dest: /usr/share/tomcat/webapps/
+       dest: /usr/share/tomcat/webapps/gameoflife.war
   - name: Start Tomcat
     service: name=tomcat state=started
