@@ -44,7 +44,7 @@ stage('Build') {
 
      stage('Artifact upload') {
       steps {
-         nexusArtifactUploader artifacts: [[artifactId: 'gameoflife', classifier: '', file: 'gameoflife-web/target/gameoflife.war', type: 'war']], credentialsId: 'nexus', groupId: 'old', nexusUrl: '18.219.144.98:8081/nexus', nexusVersion: 'nexus2', protocol: 'http', repository: 'Releases', version: '$BUILD_NUMBER'
+         nexusArtifactUploader artifacts: [[artifactId: 'gameoflife', classifier: '', file: 'gameoflife-web/target/gameoflife.war', type: 'war']], credentialsId: 'nexus', groupId: 'old', nexusUrl: '18.219.144.98:8081/nexus', nexusVersion: 'nexus2', protocol: 'http', repository: 'java', version: '$BUILD_NUMBER'
       }
      }	     
     stage('Deploy War') {
