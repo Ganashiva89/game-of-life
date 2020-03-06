@@ -28,23 +28,23 @@ stage('Build') {
       
      }
  }
-//  stage('sonarqube') {
-//       environment {
-//       scannerHome = tool 'sonarqube'
-//       }
-//         steps {
-//            withSonarQubeEnv('sonarqube') {
-//             sh "${scannerHome}/bin/sonar-scanner"
-//          }
-//          timeout(time: 10, unit: 'MINUTES') {
-//           waitForQualityGate abortPipeline: true
-//           }
-//     }
-//  }
+  stage('sonarqube') {
+       environment {
+       scannerHome = tool 'sonarqube'
+       }
+         steps {
+            withSonarQubeEnv('sonarqube') {
+             sh "${scannerHome}/bin/sonar-scanner"
+          }
+          timeout(time: 10, unit: 'MINUTES') {
+           waitForQualityGate abortPipeline: true
+           }
+     }
+  }
 
      stage('Artifact upload') {
       steps {
-         nexusArtifactUploader artifacts: [[artifactId: 'gameoflife', classifier: '', file: 'gameoflife-web/target/gameoflife.war', type: 'war']], credentialsId: 'nexus', groupId: 'old', nexusUrl: '3.135.224.240:8081/nexus', nexusVersion: 'nexus2', protocol: 'http', repository: 'releases', version: '$BUILD_NUMBER'
+         nexusArtifactUploader artifacts: [[artifactId: 'gameoflife', classifier: '', file: 'gameoflife-web/target/gameoflife.war', type: 'war']], credentialsId: 'nexus', groupId: 'com.wakaleo.gameoflife', nexusUrl: '18.217.49.58:8081/nexus', nexusVersion: 'nexus2', protocol: 'http', repository: 'releases', version: '$BUILD_NUMBER'
       }
      }	     
     stage('Deploy War') {
