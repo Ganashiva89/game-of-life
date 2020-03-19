@@ -77,10 +77,8 @@ stages {
 
                  configs: 'deploy-kube.yml', // REQUIRED
                  enableConfigSubstitution: false,
-        
-
-)
-
+        )
+   }
 post {
         success {
             archiveArtifacts 'gameoflife-web/target/*.war'
