@@ -72,13 +72,14 @@ stages {
 
       }
  }
-  stage('Apply Kubernetes files') 
+  stage('Apply Kubernetes files') {
     steps{
            kubernetesDeploy(kubeconfigId: 'kube_config',               // REQUIRED
 
                  configs: 'deploy-kube.yml', // REQUIRED
                  enableConfigSubstitution: false,
         )
+        }
    }
 post {
         success {
