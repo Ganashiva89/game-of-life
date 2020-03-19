@@ -73,15 +73,14 @@ stages {
       }
  }
   stage('Apply Kubernetes files') {
-            kubernetesDeploy{
-                  configs:"deploy-kube.yml",
-                  kubeconfigid:"kube_config",
-                  enableConfigSubstitution: true
-                  }
-           
-        }
-     
+           kubernetesDeploy(kubeconfigId: 'kube_config',               // REQUIRED
 
+                 configs: 'deploy-kube.yml', // REQUIRED
+                 enableConfigSubstitution: false,
+        
+
+)
+}
 post {
         success {
             archiveArtifacts 'gameoflife-web/target/*.war'
