@@ -11,7 +11,7 @@ stages {
    }
    stage('Build') {
        steps {
-         sh 'mvn -Dmaven.test.failure.ignore=true install'
+         sh label: '', script: 'mvn clean package'
          }
     }
   stage('Unit Test Results') {
