@@ -36,7 +36,7 @@ stages {
     steps{
            kubernetesDeploy(kubeconfigId: 'kube_config',               // REQUIRED
 
-                 configs: 'deploy-kube.yml', 'service.yml', // REQUIRED
+                 configs: 'deploy-kube.yml', // REQUIRED
                  enableConfigSubstitution: false,
         )
         }
