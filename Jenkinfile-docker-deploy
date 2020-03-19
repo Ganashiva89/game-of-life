@@ -74,8 +74,8 @@ stages {
  }
   stage('Apply Kubernetes files') {
             kubernetesDeploy{
-                  configs: 'deploy-kube.yml',
-                  kubeconfigid:'kube_config',
+                  configs:"deploy-kube.yml",
+                  kubeconfigid:"kube_config",
                   enableConfigSubstitution: true
                   }
            
