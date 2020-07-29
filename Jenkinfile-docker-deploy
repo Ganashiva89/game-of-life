@@ -25,21 +25,6 @@ stages {
                                  docker tag gameoflife-image:$BUILD_NUMBER 132622654712.dkr.ecr.us-east-2.amazonaws.com/my-repo:$BUILD_NUMBER
                                  docker push 132622654712.dkr.ecr.us-east-2.amazonaws.com/my-repo:$BUILD_NUMBER'''
       }
- }
-/* stage('Update Image Version') {
-      steps {
-        sh label: '', script: '''sed -i s/latest/$BUILD_NUMBER/ deploy-kube.yml'''
-
-      }
- }
-  stage('Apply Kubernetes files') {
-    steps{
-           kubernetesDeploy(kubeconfigId: 'kube_config',               // REQUIRED
-
-                 configs: 'deploy-kube.yml', // REQUIRED
-                 enableConfigSubstitution: false,
-        )
-        }
-   }  /*
+    }
  }
 }
