@@ -22,8 +22,8 @@ stages {
     stage('Build and Push Docker Image') {
       steps {
         sh label: '', script: '''docker build -t gameoflife-image:$BUILD_NUMBER .
-                                 docker tag gameoflife-image:$BUILD_NUMBER docker.io/shiva58/gameoflife-image:$BUILD_NUMBER
-                                 docker push docker.io/shiva58/gameoflife-image:$BUILD_NUMBER'''
+                                 docker tag gameoflife-image:$BUILD_NUMBER 132622654712.dkr.ecr.us-east-2.amazonaws.com/my-repo:$BUILD_NUMBER
+                                 docker push 132622654712.dkr.ecr.us-east-2.amazonaws.com/my-repo:$BUILD_NUMBER'''
       }
  }
   stage('Update Image Version') {
