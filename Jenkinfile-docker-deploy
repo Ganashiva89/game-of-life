@@ -26,7 +26,7 @@ stages {
                                  docker push 132622654712.dkr.ecr.us-east-2.amazonaws.com/my-repo:$BUILD_NUMBER'''
       }
  }
-  stage('Update Image Version') {
+/* stage('Update Image Version') {
       steps {
         sh label: '', script: '''sed -i s/latest/$BUILD_NUMBER/ deploy-kube.yml'''
 
@@ -40,6 +40,6 @@ stages {
                  enableConfigSubstitution: false,
         )
         }
-   }
+   }  /*
  }
 }
