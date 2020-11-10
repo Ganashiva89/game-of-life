@@ -1,0 +1,34 @@
+---
+- hosts: web
+  become: true
+  become_user: root
+  tasks:
+  - name: Stop Tomcat
+    service: name=tomcat state=stopped
+  - name: Check that war file exist
+    stat:
+      path: /usr/share/tomcat/webapps/gameoflife.war
+    register: stat_result
+
+  - name: Delete the war file, if it exist already
+    file:
+      path: /usr/share/tomcat/webapps/gameoflife.war
+      state: absent
+    when: stat_result.stat.exists == True
+  - name: Check that GAMEOFLIFE dir exist
+    stat:
+      path: /usr/share/tomcat/webapps/gameoflife
+    register: stat_result
+  - name: Delete the GAMEOFLIFE dir, if it exist already
+    file:
+      path: /usr/share/tomcat/webapps/gameoflife
+      state: absent
+    when: stat_result.stat.exists == True
+  - name: deploy the war
+    copy:
+      src: /var/lib/jenkins/workspace/CI-CD-pipeline/gameoflife-web/target/gameoflife.war
+      dest: /usr/share/tomcat/webapps/gameoflife.war
+    notify: restart tomcat
+  handlers:
+  - name: restart tomcat
+    service: name=tomcat state=restarted
