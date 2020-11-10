@@ -8,7 +8,7 @@
     <!--  TODO: Don't inline this -->
     <style type="text/css">
         h2 {
-            color: blue;
+            color: red;
             font-family: sans-serif;
         }
 
@@ -26,7 +26,7 @@
             color: white;
             font-size: medium;
             text-align: right;
-            background-color: blue;
+            background-color: red;
             margin-top: 100px;
             border-top: thin solid black;
             padding: 2px;
