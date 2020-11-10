@@ -28,7 +28,7 @@ stage('Build') {
       
      }
  }
-  stage('sonarqube') {
+/*8  stage('sonarqube') {
        environment {
        scannerHome = tool 'sonarqube'
        }
@@ -61,5 +61,5 @@ post {
        failure {
            mail bcc: '', body: '', cc: '', from: '', replyTo: '', subject: '', to: 'shivavamshi..89@gmail.com'
         }
-    }       
+    }  */     
 }
